@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Cartas\" />
     <Folder Include="Estrategias\" />
     <Folder Include="Estrategias\BlackJack\" />
     <Folder Include="Estrategias\Uno\" />
