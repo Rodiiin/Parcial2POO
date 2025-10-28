@@ -6,4 +6,18 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Abstractas\" />
+    <Folder Include="Cartas\" />
+    <Folder Include="Estrategias\" />
+    <Folder Include="Estrategias\BlackJack\" />
+    <Folder Include="Estrategias\Uno\" />
+    <Folder Include="Interfaces\" />
+    <Folder Include="Juegos\" />
+    <Folder Include="Mazo\" />
+    <Folder Include="Reglas\" />
+    <Folder Include="Roles\" />
+    <Folder Include="Turnos\" />
+  </ItemGroup>
+
 </Project>
