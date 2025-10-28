@@ -13,7 +13,6 @@
     <Folder Include="Juegos\" />
     <Folder Include="Mazo\" />
     <Folder Include="Reglas\" />
-    <Folder Include="Roles\" />
     <Folder Include="Turnos\" />
   </ItemGroup>
 
