@@ -9,8 +9,6 @@
   <ItemGroup>
     <Folder Include="Juegos\" />
     <Folder Include="Mazo\" />
-    <Folder Include="Reglas\" />
-    <Folder Include="Turnos\" />
   </ItemGroup>
 
 </Project>
