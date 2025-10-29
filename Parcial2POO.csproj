@@ -7,9 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Estrategias\" />
-    <Folder Include="Estrategias\BlackJack\" />
-    <Folder Include="Estrategias\Uno\" />
     <Folder Include="Juegos\" />
     <Folder Include="Mazo\" />
     <Folder Include="Reglas\" />
