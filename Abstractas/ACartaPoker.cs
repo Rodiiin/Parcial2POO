@@ -1,5 +1,7 @@
 using System;
 
+using Parcial2POO.Interfaces;
+
 
 
 namespace Parcial2POO.Abstractas;
@@ -26,11 +28,12 @@ public enum TipoCarta
     King,
     As
 }
-public abstract class ACartaPoker
+public abstract class ACartaPoker : ICartaPoker
 {
-    protected Colores Color{ get; set; }
-    protected Figura Figura{ get; set; }
-    protected TipoCarta TipoCarta { get; set; }
+    //Atributos
+    public Colores Color{ get; protected set; }
+    public Figura Figura{ get; protected set; }
+    public TipoCarta TipoCarta { get; protected set; }
 
     private int _valorNumerico;
     public int ValorNumerico
