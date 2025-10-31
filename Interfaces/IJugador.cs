@@ -4,5 +4,5 @@ namespace Parcial2POO.Cartas;
 
 public interface IJugador
 {
-
+    string Nombre { get; }
 }
