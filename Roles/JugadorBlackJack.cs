@@ -7,18 +7,19 @@ namespace Parcial2POO.Roles;
 public class JugadorBlackJack : IJugador,
  IJugadorConMano,
  IJugadorQuePuedePedirCarta,
- IJugadorConPuntaje,
- IJugadorConCondicionesDeVictoria
+ IJugadorConPuntaje
 
 {
     private readonly List<ICarta> _mano;
     private readonly ICalculadorDePuntosBlackJack _calculador;
     private readonly IEstrategiaJugadorBlackJack _estrategia;
 
+    public string Id { get; }
     public string Nombre { get; }
 
-    public JugadorBlackJack(string nombre, ICalculadorDePuntosBlackJack calculador, IEstrategiaJugadorBlackJack estrategia)
+    public JugadorBlackJack(string id, string nombre, ICalculadorDePuntosBlackJack calculador, IEstrategiaJugadorBlackJack estrategia)
     {
+        this.Id = id;
         this.Nombre = nombre;
         _calculador = calculador;
         _estrategia = estrategia;
@@ -37,9 +38,9 @@ public class JugadorBlackJack : IJugador,
     }
 
     // --- IJugadorQuePuedePedirCarta ---
-    public bool DebePedirCarta()
+    public bool DeseaOtraCarta()
     {
-        return _estrategia.DebePedirCarta(_mano);
+        return _estrategia.DeseaOtraCarta(_mano);
     }
 
     // --- IJugadorConPuntaje ---
@@ -48,18 +49,12 @@ public class JugadorBlackJack : IJugador,
         return _calculador.CalcularPuntos(_mano);
     }
 
-    // --- IJugadorConCondicionesDeVictoria ---
-    public bool HaGanado()
+    public void LimpiarMano()
     {
-        // return _reglas.EvaluarVictoria(this);
-    throw new NotImplementedException("La evaluación de victoria será delegada a ReglasBlackJack.");        
+        _mano.Clear();
     }
 
-    public bool HaPerdido()
-    {
-        // return _reglas.EvaluarDerrota(this);
-    throw new NotImplementedException("La evaluación de derrota será delegada a ReglasBlackJack.");        
-    }
+
 
   
 

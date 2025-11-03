@@ -11,7 +11,7 @@ public class EstrategiaDealer : IEstrategiaJugadorBlackJack
     {
         _calculador = calculador ?? throw new ArgumentNullException(nameof(calculador));
     }
-    public bool DebePedirCarta(List<ICarta> mano)
+    public bool DeseaOtraCarta(List<ICarta> mano)
     {
         return  _calculador.CalcularPuntos(mano) < 17;
     }

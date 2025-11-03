@@ -22,7 +22,7 @@ public class EstrategiaCautelosa : IEstrategiaJugadorBlackJack
     }
 
     //Métodos
-    public bool DebePedirCarta(List<ICarta> mano)
+    public bool DeseaOtraCarta(List<ICarta> mano)
     {
         return _calculador.CalcularPuntos(mano) < Umbral;
     }
