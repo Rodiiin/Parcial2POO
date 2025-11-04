@@ -7,7 +7,7 @@ using Parcial2POO.Turnos;
 
 namespace Parcial2POO.Juegos;
 
-public class JuegoBlackJack : IJuegoCartas, IJuegoPorRondas, IJuegoConBanca, IJuegoConPuntuacion
+public class JuegoBlackJack : IJuegoBlackJack
 {
     private readonly IMazoCartas _mazo;
     private readonly IMazoConDescarte? _mazoConDescarte;
@@ -15,7 +15,8 @@ public class JuegoBlackJack : IJuegoCartas, IJuegoPorRondas, IJuegoConBanca, IJu
     private readonly ReglasBlackJack _reglas;
     private readonly JugadorBlackJack _dealer;
     private readonly List<JugadorBlackJack> _jugadores;
-
+    private int _rondasJugadas = 0;
+    private readonly int _maxRondas = 1;
     public JuegoBlackJack(IMazoCartas mazo, ReglasBlackJack reglasBlackJack, JugadorBlackJack dealer, List<JugadorBlackJack> jugadores)
     {
         _mazo = mazo;
@@ -57,8 +58,13 @@ public class JuegoBlackJack : IJuegoCartas, IJuegoPorRondas, IJuegoConBanca, IJu
             _mazoConDescarte?.DescartarCarta(carta);
 
         _dealer.LimpiarMano();
+         _rondasJugadas++;
     }
-    
+    public bool HaFinalizado()
+    {
+        return _rondasJugadas >= _maxRondas;
+    }
+
     public void RepartirCartas()
     {
         foreach (var jugador in _jugadores)

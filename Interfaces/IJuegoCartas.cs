@@ -4,6 +4,7 @@ namespace Parcial2POO.Interfaces;
 
 public interface IJuegoCartas
 {
-    void IniciarJuego();       
+    void IniciarJuego();
     void EjecutarTurno();
+    bool HaFinalizado();
 }
