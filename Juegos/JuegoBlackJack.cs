@@ -11,7 +11,6 @@ public class JuegoBlackJack : IJuegoBlackJack
 {
     private readonly IMazoCartas _mazo;
     private readonly IMazoConDescarte? _mazoConDescarte;
-    private readonly IMazoReciclable? _mazoReciclable;
     private readonly ReglasBlackJack _reglas;
     private readonly JugadorBlackJack _dealer;
     private readonly List<JugadorBlackJack> _jugadores;
@@ -21,7 +20,6 @@ public class JuegoBlackJack : IJuegoBlackJack
     {
         _mazo = mazo;
         _mazoConDescarte = mazo as IMazoConDescarte;
-        _mazoReciclable = mazo as IMazoReciclable;
         _reglas = reglasBlackJack;
         _dealer = dealer;
         _jugadores = jugadores;
