@@ -18,6 +18,10 @@ public class CartaBlackJack : ACartaPoker
             {
                 return 10;
             }
+            else if(TipoCarta == TipoCarta.As)
+            {
+                return 11;
+            }
             else
             {
                 throw new InvalidOperationException("Tipo de carta no válido para Blackjack.");
@@ -35,5 +39,11 @@ public class CartaBlackJack : ACartaPoker
         {
             throw new ArgumentException("Las figuras no deben tener valor numérico en Blackjack.");
         }
+
+        if (tipoCarta == TipoCarta.Numerica && valorNumerico is null)
+        {
+            throw new ArgumentException("Las cartas numéricas deben tener un valor numérico.");
+        }
+
     }
 }
