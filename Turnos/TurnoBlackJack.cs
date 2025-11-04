@@ -20,11 +20,16 @@ public class TurnoBlackJack : ITurno
 
     public void Ejecutar()
     {
+        Console.WriteLine($"\n🎯 Turno de {_jugador.Nombre}");
         while (!_reglas.SePaso(_jugador) && _jugador.DeseaOtraCarta())
         {
             var carta = _mazo.SacarCarta();
             _jugador.RecibirCarta(carta);
         }
-    }
+        if (_reglas.SePaso(_jugador))
+            Console.WriteLine($"💥 {_jugador.Nombre} se pasó con {_jugador.ObtenerPuntos()} puntos.");
+        else
 
+            Console.WriteLine($"✅ {_jugador.Nombre} termina turno con {_jugador.ObtenerPuntos()} puntos.");
+    }
 }

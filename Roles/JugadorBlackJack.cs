@@ -10,7 +10,7 @@ public class JugadorBlackJack : IJugador,
  IJugadorConPuntaje
 
 {
-    private readonly List<ICarta> _mano;
+    private readonly List<ICarta> _mano = new(); //<-- aqui inicializo?
     private readonly ICalculadorDePuntosBlackJack _calculador;
     private readonly IEstrategiaJugadorBlackJack _estrategia;
 
@@ -30,6 +30,7 @@ public class JugadorBlackJack : IJugador,
     public void RecibirCarta(ICarta carta)
     {
         _mano.Add(carta);
+        Console.WriteLine($"🃏 {this.Nombre} recibió: {carta}");
     }
 
     public List<ICarta> ObtenerMano()
@@ -40,6 +41,8 @@ public class JugadorBlackJack : IJugador,
     // --- IJugadorQuePuedePedirCarta ---
     public bool DeseaOtraCarta()
     {
+        bool decision = _estrategia.DeseaOtraCarta(_mano);
+        Console.WriteLine($"🤔 {this.Nombre} {(decision ? "pide otra carta" : "se planta")} con {_calculador.CalcularPuntos(_mano)} puntos.");
         return _estrategia.DeseaOtraCarta(_mano);
     }
 

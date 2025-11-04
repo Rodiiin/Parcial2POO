@@ -44,6 +44,26 @@ public class JuegoBlackJack : IJuegoBlackJack
 
     public void FinalizarRonda()
     {
+
+        Console.WriteLine("📊 Resultados de la ronda:");
+
+        foreach (var jugador in _jugadores)
+        {
+            if (_reglas.HaGanado(jugador, _dealer))
+                Console.WriteLine($"🏆 {jugador.Nombre} ha ganado contra el dealer con {jugador.ObtenerPuntos()} puntos.");
+            else if (_reglas.HaPerdido(jugador, _dealer))
+                Console.WriteLine($"❌ {jugador.Nombre} ha perdido contra el dealer con {jugador.ObtenerPuntos()} puntos.");
+            else if (_reglas.EsEmpate(jugador, _dealer))
+                Console.WriteLine($"⚖️ {jugador.Nombre} ha empatado con el dealer con {jugador.ObtenerPuntos()} puntos.");
+
+            if (_reglas.TieneBlackJack(jugador))
+                Console.WriteLine($"🎉 {jugador.Nombre} tiene BLACKJACK");
+        }
+
+        if (_reglas.TieneBlackJack(_dealer))
+            Console.WriteLine($"🎉 El dealer tiene BLACKJACK");
+        
+        Console.WriteLine("🧹 Limpiando manos y descartando cartas...");
         foreach (var jugador in _jugadores)
         {
             foreach (var carta in jugador.ObtenerMano())
@@ -56,8 +76,9 @@ public class JuegoBlackJack : IJuegoBlackJack
             _mazoConDescarte?.DescartarCarta(carta);
 
         _dealer.LimpiarMano();
-         _rondasJugadas++;
+        _rondasJugadas++;
     }
+    
     public bool HaFinalizado()
     {
         return _rondasJugadas >= _maxRondas;
@@ -65,6 +86,8 @@ public class JuegoBlackJack : IJuegoBlackJack
 
     public void RepartirCartas()
     {
+        Console.WriteLine("🃎 Repartiendo cartas iniciales...");
+
         foreach (var jugador in _jugadores)
         {
             jugador.RecibirCarta(_mazo.SacarCarta());
@@ -77,11 +100,18 @@ public class JuegoBlackJack : IJuegoBlackJack
 
     public void JugarBanca()
     {
+        Console.WriteLine($"\n🏦 Turno del dealer ({_dealer.Nombre})");
         while (!_reglas.SePaso(_dealer) && _dealer.DeseaOtraCarta())
         {
             _dealer.RecibirCarta(_mazo.SacarCarta());
         }
+
+        if (_reglas.SePaso(_dealer))
+            Console.WriteLine($"💥 Dealer se pasó con {_dealer.ObtenerPuntos()} puntos.");
+        else
+            Console.WriteLine($"✅ Dealer termina con {_dealer.ObtenerPuntos()} puntos.");
     }
+    
 
     public int ObtenerPuntajeJugador(string idJugador)
     {
