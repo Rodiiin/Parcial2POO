@@ -6,5 +6,6 @@ public interface IJuegoCartas
 {
     void IniciarJuego();
     void EjecutarTurno();
+    void FinalizarRonda();
     bool HaFinalizado();
 }
