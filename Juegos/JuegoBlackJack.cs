@@ -45,7 +45,7 @@ public class JuegoBlackJack : IJuegoBlackJack
     public void FinalizarRonda()
     {
 
-        Console.WriteLine("📊 Resultados de la ronda:");
+        Console.WriteLine("\n📊 Resultados de la ronda:");
 
         foreach (var jugador in _jugadores)
         {

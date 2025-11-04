@@ -10,7 +10,7 @@ public class JugadorBlackJack : IJugador,
  IJugadorConPuntaje
 
 {
-    private readonly List<ICarta> _mano = new(); //<-- aqui inicializo?
+    private readonly List<ICarta> _mano = new(); 
     private readonly ICalculadorDePuntosBlackJack _calculador;
     private readonly IEstrategiaJugadorBlackJack _estrategia;
 
