@@ -20,11 +20,11 @@ public class MazoBlackJack : IMazoCartas, IMazoConDescarte, IMazoReciclable
         _cantidadDeMazos = cantidadDeMazos;
         _cartas = new Stack<ICarta>();
         _cartasDescartadas = new List<ICarta>();
-        Inicializar();
-        Barajar();
+        InicializarCarta();
+        BarajarCarta();
 
     }
-    private void Inicializar()
+    public void InicializarCarta()
     {
         //Cada palo tiene 13 cartas:
         _cartas.Clear();
@@ -54,7 +54,7 @@ public class MazoBlackJack : IMazoCartas, IMazoConDescarte, IMazoReciclable
         }  
     }
 
-    public void Barajar()
+    public void BarajarCarta()
     {
         var lista = new List<ICarta>(_cartas);
         var random = new Random();
@@ -97,7 +97,7 @@ public class MazoBlackJack : IMazoCartas, IMazoConDescarte, IMazoReciclable
         }
 
         _cartasDescartadas.Clear();
-        Barajar();
+        BarajarCarta();
     }
 
     public int CartasRestantes()
