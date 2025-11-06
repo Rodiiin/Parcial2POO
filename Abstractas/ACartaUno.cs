@@ -8,7 +8,8 @@ public enum ColoresUno
     Rojo,
     Azul,
     Verde,
-    Amarillo
+    Amarillo,
+    Negro // Para los Comodines
 }
 
 public enum TiposUno
