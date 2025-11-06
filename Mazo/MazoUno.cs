@@ -31,6 +31,9 @@ public class MazoUno : IMazoCartas, IMazoConDescarte, IMazoReciclable
         {
             foreach (var color in Enum.GetValues<ColoresUno>())
             {
+                if (color == ColoresUno.Negro)
+                    continue; // Los comodines se agregan después
+                    
                 // Carta 0 (una por color)
                 _cartas.Push(new CartaUnoClasico(color, TiposUno.Numerica, 0));
 
