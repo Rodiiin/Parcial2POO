@@ -19,7 +19,7 @@ public class SimuladorDeJuegos
         {
             Console.WriteLine($"\n🔁 Comenzando ronda {ronda}");
             _juego.IniciarJuego();
-            Console.WriteLine("🎮 Ejecutando turnos:");
+            Console.WriteLine("🕹️ Ejecutando turnos:");
             _juego.EjecutarTurno();
             Console.WriteLine("🧹 Finalizando ronda:");
             _juego.FinalizarRonda();

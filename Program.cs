@@ -33,7 +33,7 @@ class Program
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error al iniciar el juego {ex.Message}, no se encontró.");
+            Console.WriteLine($"Error al iniciar el juego:'{ex.Message}'.");
         }
     }
 }

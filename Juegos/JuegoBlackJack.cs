@@ -7,7 +7,7 @@ using Parcial2POO.Turnos;
 
 namespace Parcial2POO.Juegos;
 
-public class JuegoBlackJack : IJuegoBlackJack
+public class JuegoBlackJack : IJuegoCartas, IJuegoConBanca, IJuegoConPuntuacion
 {
     private readonly IMazoCartas _mazo;
     private readonly IMazoConDescarte? _mazoConDescarte;
