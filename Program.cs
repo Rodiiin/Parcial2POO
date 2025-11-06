@@ -11,21 +11,20 @@ class Program
         // Console.WriteLine("2. Uno");
 
         Console.Write("Ingresa el número del juego: ");
-        string opcion = Console.ReadLine().Trim(); //para que sirve trim?
+        string opcion = Console.ReadLine(); 
+        string tipoJuego;
 
-        string tipoJuego = opcion switch
+        switch (opcion)
         {
-            "1" => "blackjack",
-            //"2" => "uno"
-            _ => "desconocido"
+            case "1":
+                tipoJuego = "BlackJack";
+                break;
+            default:
+                tipoJuego = "";
+                break;
         };
 
-        if (tipoJuego == "desconocido")
-        {
-            Console.WriteLine("Opción invalida");
-            return;
-        }
-
+        //Tratar de iniciar al juego.
         try
         {
             IJuegoCartas juego = FabricaDeJuegos.CrearJuego(tipoJuego);
@@ -34,7 +33,7 @@ class Program
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error al iniciar el juego {ex.Message} ");
+            Console.WriteLine($"Error al iniciar el juego {ex.Message}, no se encontró.");
         }
     }
 }

@@ -63,7 +63,7 @@ public class JuegoBlackJack : IJuegoBlackJack
         if (_reglas.TieneBlackJack(_dealer))
             Console.WriteLine($"🎉 El dealer tiene BLACKJACK");
         
-        Console.WriteLine("🧹 Limpiando manos y descartando cartas...");
+        Console.WriteLine("🧹 Limpiando manos y descartando cartas.");
         foreach (var jugador in _jugadores)
         {
             foreach (var carta in jugador.ObtenerMano())
@@ -86,7 +86,7 @@ public class JuegoBlackJack : IJuegoBlackJack
 
     public void RepartirCartas()
     {
-        Console.WriteLine("🃎 Repartiendo cartas iniciales...");
+        Console.WriteLine("🃎 Repartiendo cartas iniciales:");
 
         foreach (var jugador in _jugadores)
         {
