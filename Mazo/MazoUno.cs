@@ -79,26 +79,59 @@ public class MazoUno : IMazoCartas, IMazoConDescarte, IMazoReciclable
 
     public int CartasDescartadas()
     {
-        throw new NotImplementedException();
+        return _cartasDescartadas.Count;
     }
 
     public int CartasRestantes()
     {
-        throw new NotImplementedException();
+        return _cartas.Count;
     }
 
     public void DescartarCarta(ICarta carta)
     {
-        throw new NotImplementedException();
+        if (carta == null) throw new ArgumentNullException(nameof(carta));
+        _cartasDescartadas.Push(carta);
     }
 
     public void ReciclarDescarte()
     {
-        throw new NotImplementedException();
+        // Si ya hay cartas en el mazo no es necesario reciclar
+        if (_cartas.Count > 0) return;
+
+        // No hay suficientes descartes para reciclar (se debe dejar la última descartada como tope)
+        if (_cartasDescartadas.Count <= 1) return;
+
+        // Guardar la última carta descartada (tope) y tomar el resto para mezclar
+        var ultima = _cartasDescartadas.Pop();
+        var paraReciclar = new List<ICarta>(_cartasDescartadas);
+
+        // Vaciar el descarte y dejar sólo la última
+        _cartasDescartadas.Clear();
+        _cartasDescartadas.Push(ultima);
+
+        // Barajar lista (Fisher–Yates)
+        var rng = new Random();
+        for (int i = paraReciclar.Count - 1; i > 0; i--)
+        {
+            int j = rng.Next(i + 1);
+            var tmp = paraReciclar[j];
+            paraReciclar[j] = paraReciclar[i];
+            paraReciclar[i] = tmp;
+        }
+
+        // Pasar al mazo principal
+        foreach (var c in paraReciclar)
+            _cartas.Push(c);
     }
 
     public ICarta SacarCarta()
     {
-        throw new NotImplementedException();
+        if (_cartas.Count == 0)
+            ReciclarDescarte();
+
+        if (_cartas.Count == 0)
+            throw new InvalidOperationException("No hay cartas disponibles para sacar.");
+
+        return _cartas.Pop();
     }
 }
