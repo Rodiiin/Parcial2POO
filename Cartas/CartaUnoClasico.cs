@@ -5,6 +5,8 @@ namespace Parcial2POO.Cartas;
 
 public class CartaUnoClasico : ACartaUno
 {
+    public int Valor { get; set; }
+
     //Constructor
     public CartaUnoClasico(ColoresUno color, TiposUno tipo, int? valorNumerico = null)
     :base(color, tipo, valorNumerico)
