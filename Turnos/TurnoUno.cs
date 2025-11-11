@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
+using Parcial2POO.Interfaces;
 
 namespace Parcial2POO.Turnos;
 
-public class TurnoUno
+public class TurnoUno : ITurno
 {
     private readonly List<int> _jugadores;
     private int _indiceActual;
@@ -51,5 +52,11 @@ public class TurnoUno
         {
             _indiceActual = (_indiceActual - 1 + _jugadores.Count) % _jugadores.Count;
         }
+    }
+
+    public void Ejecutar()
+    {
+        // Método de la interfaz ITurno - simplemente avanza al siguiente turno
+        ObtenerSiguiente();
     }
 }
