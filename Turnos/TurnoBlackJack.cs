@@ -7,11 +7,11 @@ namespace Parcial2POO.Turnos;
 
 public class TurnoBlackJack : ITurno
 {
-    private readonly JugadorBlackJack _jugador;
+    private readonly IJugadorBlackJack _jugador;
     private readonly IMazoCartas _mazo;
-    private readonly ReglasBlackJack _reglas;
+    private readonly IReglasJuegoCompetitivoBlackJack _reglas;
 
-    public TurnoBlackJack(JugadorBlackJack jugador, IMazoCartas mazo, ReglasBlackJack reglas)
+    public TurnoBlackJack(IJugadorBlackJack jugador, IMazoCartas mazo, IReglasJuegoCompetitivoBlackJack reglas)
     {
         _jugador = jugador;
         _mazo = mazo;
@@ -20,16 +20,16 @@ public class TurnoBlackJack : ITurno
 
     public void Ejecutar()
     {
-        Console.WriteLine($"\n🎯 Turno de {_jugador.Nombre}");
+        Console.WriteLine($"\nTurno de {_jugador.Nombre}");
         while (!_reglas.SePaso(_jugador) && _jugador.DeseaOtraCarta())
         {
             var carta = _mazo.SacarCarta();
             _jugador.RecibirCarta(carta);
         }
         if (_reglas.SePaso(_jugador))
-            Console.WriteLine($"💥 {_jugador.Nombre} se pasó con {_jugador.ObtenerPuntos()} puntos.");
+            Console.WriteLine($"{_jugador.Nombre} se pasó con {_jugador.ObtenerPuntos()} puntos.");
         else
 
-            Console.WriteLine($"✅ {_jugador.Nombre} termina turno con {_jugador.ObtenerPuntos()} puntos.");
+            Console.WriteLine($"{_jugador.Nombre} termina turno con {_jugador.ObtenerPuntos()} puntos.");
     }
 }

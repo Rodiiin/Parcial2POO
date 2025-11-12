@@ -29,13 +29,18 @@ public class FabricaDeJuegos
         var calculador = new CalculadorDePuntosBlackjack();
         var reglas = new ReglasBlackJack(new CalculadorDePuntosBlackjack());
 
-        var dealer = new JugadorBlackJack("1","Dealer", calculador,new EstrategiaDealer(calculador));
-        var jugadores = new List<JugadorBlackJack>
+        var dealer = new JugadorBlackJack("1", "Dealer", calculador, new EstrategiaDealer(calculador));
+        var jugadores = new List<IJugadorBlackJack>
         {
             new JugadorBlackJack("1J","J Cauteloso", calculador, new EstrategiaCautelosa(calculador)),
             new JugadorBlackJack("2J","J Temerario", calculador,new EstrategiaTemeraria(calculador))
         };
+      
 
+
+
+        //return new JuegoBlackJack(mazo, reglas, dealer, jugadores, new RepartoPorDebajoDelUmbral());
         return new JuegoBlackJack(mazo, reglas, dealer, jugadores);
+
     }
 }

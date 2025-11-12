@@ -5,7 +5,7 @@ using Parcial2POO.Interfaces;
 
 namespace Parcial2POO.Mazo;
 
-public class MazoBlackJack : IMazoCartas, IMazoConDescarte, IMazoReciclable
+public class MazoBlackJack : IMazoCartasBlackJack
 {
     private readonly Stack<ICarta> _cartas;
     private readonly List<ICarta> _cartasDescartadas;
@@ -16,12 +16,14 @@ public class MazoBlackJack : IMazoCartas, IMazoConDescarte, IMazoReciclable
     {
         if (cantidadDeMazos <= 0)
             throw new ArgumentOutOfRangeException(nameof(cantidadDeMazos), "Debe haber al menos un mazo");
-        
+
         _cantidadDeMazos = cantidadDeMazos;
         _cartas = new Stack<ICarta>();
         _cartasDescartadas = new List<ICarta>();
         InicializarCarta();
+        //MostrarNCartas();
         BarajarCarta();
+        //MostrarNCartas();
 
     }
     public void InicializarCarta()
@@ -51,14 +53,14 @@ public class MazoBlackJack : IMazoCartas, IMazoConDescarte, IMazoReciclable
 
                 //Haciendo un total de 4 + 9 = 13 cartas por palo.
             }
-        }  
+        }
     }
 
     public void BarajarCarta()
     {
         var lista = new List<ICarta>(_cartas);
         var random = new Random();
-        _cartas.Clear();  
+        _cartas.Clear();
 
         while (lista.Count > 0)
         {
@@ -110,6 +112,19 @@ public class MazoBlackJack : IMazoCartas, IMazoConDescarte, IMazoReciclable
         return _cartasDescartadas.Count;
     }
 
+    public List<ICarta> VerCartas()
+    {
+        return _cartas.ToList();
+    }
 
+    private void MostrarNCartas(int cantidad = 10)
+{
+    Console.WriteLine($"\nPrimeras {cantidad} cartas:");
 
+    var cartas = _cartas.ToList(); 
+    for (int i = 0; i < Math.Min(cantidad, cartas.Count); i++)
+    {
+        Console.WriteLine($"[{i + 1}] {cartas[i]}");
+    }
+}
 }

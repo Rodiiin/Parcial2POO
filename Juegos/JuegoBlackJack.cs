@@ -9,21 +9,34 @@ namespace Parcial2POO.Juegos;
 
 public class JuegoBlackJack : IJuegoCartas, IJuegoConBanca, IJuegoConPuntuacion
 {
-    private readonly IMazoCartas _mazo;
+    private readonly IMazoCartasBlackJack _mazo;
     private readonly IMazoConDescarte? _mazoConDescarte;
-    private readonly ReglasBlackJack _reglas;
-    private readonly JugadorBlackJack _dealer;
-    private readonly List<JugadorBlackJack> _jugadores;
+    private readonly IReglasJuegoCompetitivoBlackJack _reglas;
+    private readonly IJugadorBlackJack _dealer;
+    private readonly List<IJugadorBlackJack> _jugadores;
     private int _rondasJugadas = 0;
     private readonly int _maxRondas = 1;
-    public JuegoBlackJack(IMazoCartas mazo, ReglasBlackJack reglasBlackJack, JugadorBlackJack dealer, List<JugadorBlackJack> jugadores)
+    private readonly IRepartoPorUmbralBlackJack _repartoPorUmbralBlackJack;
+
+    //Con reparto de umbral
+    public JuegoBlackJack(IMazoCartasBlackJack mazo, IReglasJuegoCompetitivoBlackJack reglasBlackJack, IJugadorBlackJack dealer, List<IJugadorBlackJack> jugadores, IRepartoPorUmbralBlackJack repartoPorUmbral)
     {
         _mazo = mazo;
-        _mazoConDescarte = mazo as IMazoConDescarte;
+        _mazoConDescarte = mazo;
         _reglas = reglasBlackJack;
         _dealer = dealer;
         _jugadores = jugadores;
+        _repartoPorUmbralBlackJack = repartoPorUmbral;
+    }
 
+    //Sin reparto de umbral
+    public JuegoBlackJack(IMazoCartasBlackJack mazo, IReglasJuegoCompetitivoBlackJack reglasBlackJack, IJugadorBlackJack dealer, List<IJugadorBlackJack> jugadores)
+    {
+        _mazo = mazo;
+        _mazoConDescarte = mazo;
+        _reglas = reglasBlackJack;
+        _dealer = dealer;
+        _jugadores = jugadores;
     }
 
     public void IniciarJuego()
@@ -45,25 +58,25 @@ public class JuegoBlackJack : IJuegoCartas, IJuegoConBanca, IJuegoConPuntuacion
     public void FinalizarRonda()
     {
 
-        Console.WriteLine("\n📊 Resultados de la ronda:");
+        Console.WriteLine("\n Resultados de la ronda:");
 
         foreach (var jugador in _jugadores)
         {
             if (_reglas.HaGanado(jugador, _dealer))
-                Console.WriteLine($"🏆 {jugador.Nombre} ha ganado contra el dealer con {jugador.ObtenerPuntos()} puntos.");
+                Console.WriteLine($"{jugador.Nombre} ha ganado contra el dealer con {jugador.ObtenerPuntos()} puntos.");
             else if (_reglas.HaPerdido(jugador, _dealer))
-                Console.WriteLine($"❌ {jugador.Nombre} ha perdido contra el dealer con {jugador.ObtenerPuntos()} puntos.");
+                Console.WriteLine($"{jugador.Nombre} ha perdido contra el dealer con {jugador.ObtenerPuntos()} puntos.");
             else if (_reglas.EsEmpate(jugador, _dealer))
-                Console.WriteLine($"⚖️ {jugador.Nombre} ha empatado con el dealer con {jugador.ObtenerPuntos()} puntos.");
+                Console.WriteLine($"{jugador.Nombre} ha empatado con el dealer con {jugador.ObtenerPuntos()} puntos.");
 
             if (_reglas.TieneBlackJack(jugador))
-                Console.WriteLine($"🎉 {jugador.Nombre} tiene BLACKJACK");
+                Console.WriteLine($"{jugador.Nombre} tiene BLACKJACK");
         }
 
         if (_reglas.TieneBlackJack(_dealer))
-            Console.WriteLine($"🎉 El dealer tiene BLACKJACK");
+            Console.WriteLine($"El dealer tiene BLACKJACK");
         
-        Console.WriteLine("🧹 Limpiando manos y descartando cartas.");
+        Console.WriteLine("Limpiando manos y descartando cartas.");
         foreach (var jugador in _jugadores)
         {
             foreach (var carta in jugador.ObtenerMano())
@@ -86,58 +99,62 @@ public class JuegoBlackJack : IJuegoCartas, IJuegoConBanca, IJuegoConPuntuacion
 
     public void RepartirCartas()
     {
-        Console.WriteLine("🃎 Repartiendo cartas iniciales:");
+        Console.WriteLine("Repartiendo cartas iniciales:");
 
+        
         foreach (var jugador in _jugadores)
         {
-            jugador.RecibirCarta(_mazo.SacarCarta());
-            jugador.RecibirCarta(_mazo.SacarCarta());
-        }
 
+            jugador.RecibirCarta(_mazo.SacarCarta());
+            jugador.RecibirCarta(_mazo.SacarCarta());
+            // _repartoPorUmbralBlackJack.ConfiguradorManoInicial(jugador, _mazo);
+
+        }
+        
         _dealer.RecibirCarta(_mazo.SacarCarta());
         _dealer.RecibirCarta(_mazo.SacarCarta());
     }
 
     public void JugarBanca()
     {
-        Console.WriteLine($"\n🏦 Turno del dealer ({_dealer.Nombre})");
+        Console.WriteLine($"\n Turno del dealer ({_dealer.Nombre})");
         while (!_reglas.SePaso(_dealer) && _dealer.DeseaOtraCarta())
         {
             _dealer.RecibirCarta(_mazo.SacarCarta());
         }
 
         if (_reglas.SePaso(_dealer))
-            Console.WriteLine($"💥 Dealer se pasó con {_dealer.ObtenerPuntos()} puntos.");
+            Console.WriteLine($"Dealer se pasó con {_dealer.ObtenerPuntos()} puntos.");
         else
-            Console.WriteLine($"✅ Dealer termina con {_dealer.ObtenerPuntos()} puntos.");
+            Console.WriteLine($"Dealer termina con {_dealer.ObtenerPuntos()} puntos.");
     }
     
 
-    public int ObtenerPuntajeJugador(string idJugador)
+    public int ObtenerPuntajeJugador(string nombreJugador)
     {
         foreach (var jugador in _jugadores)
         {
-            if (jugador.Id == idJugador)
+            if (jugador.Nombre == nombreJugador)
             {
                 return jugador.ObtenerPuntos();
             }
         }
-        throw new ArgumentException($"No se encontró el jugador con ID: {idJugador}");
+        throw new ArgumentException($"No se encontró el jugador con ID: {nombreJugador}");
     }
 
-    public bool JugadorHaPerdido(string idJugador)
+    public bool JugadorHaPerdido(string nombreJugador)
     {
         foreach (var jugador in _jugadores)
         {
-            if (jugador.Id == idJugador)
+            if (jugador.Nombre == nombreJugador)
             {
                 return _reglas.HaPerdido(jugador, _dealer);
             }
         }
 
-        throw new ArgumentException($"No se encontró el jugador con ID: {idJugador}");
+        throw new ArgumentException($"No se encontró el jugador con ID: {nombreJugador}");
     }
 
-
+    
 
 }

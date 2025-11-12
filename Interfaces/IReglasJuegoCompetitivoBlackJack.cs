@@ -4,9 +4,9 @@ using Parcial2POO.Roles;
 namespace Parcial2POO.Interfaces;
 
 public interface IReglasJuegoCompetitivoBlackJack : 
-    IReglasJuegoCompetitivo<JugadorBlackJack>,
-    IReglasJuegoConEmpate<JugadorBlackJack>
+    IReglasJuegoCompetitivo<IJugadorBlackJack>,
+    IReglasJuegoConEmpate<IJugadorBlackJack>
 {
-    bool SePaso(JugadorBlackJack jugador); //Esto solo aplica a BlackJack
-    bool TieneBlackJack(JugadorBlackJack jugador);
+    bool SePaso(IJugadorBlackJack jugador); //Esto solo aplica a BlackJack
+    bool TieneBlackJack(IJugadorBlackJack jugador);
 }

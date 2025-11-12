@@ -16,18 +16,18 @@ public class ReglasBlackJack : IReglasJuegoCompetitivoBlackJack
     _calculador = calculador;
   }
 
-  public bool TieneBlackJack(JugadorBlackJack jugador)
+  public bool TieneBlackJack(IJugadorBlackJack jugador)
   {
     return _calculador.TieneBlackjack(jugador.ObtenerMano());
   }
 
-  public bool SePaso(JugadorBlackJack jugador)
+  public bool SePaso(IJugadorBlackJack jugador)
   {
     return _calculador.SePaso(jugador.ObtenerMano());
   }
 
 
-  public bool HaGanado(JugadorBlackJack jugador, JugadorBlackJack dealer)
+  public bool HaGanado(IJugadorBlackJack jugador, IJugadorBlackJack dealer)
   {
     if (SePaso(jugador)) return false;
     else if (SePaso(dealer)) return true;
@@ -37,14 +37,14 @@ public class ReglasBlackJack : IReglasJuegoCompetitivoBlackJack
   }
 
 
-  public bool HaPerdido(JugadorBlackJack jugador, JugadorBlackJack dealer)
+  public bool HaPerdido(IJugadorBlackJack jugador, IJugadorBlackJack dealer)
   {
     if (SePaso(jugador)) return true;
     if (!SePaso(dealer) && dealer.ObtenerPuntos() > jugador.ObtenerPuntos()) return true;
     return false;
   }
 
-  public bool EsEmpate(JugadorBlackJack jugador, JugadorBlackJack dealer)
+  public bool EsEmpate(IJugadorBlackJack jugador, IJugadorBlackJack dealer)
   {
     if (!SePaso(jugador) && !SePaso(dealer) && jugador.ObtenerPuntos() == dealer.ObtenerPuntos())
     {
