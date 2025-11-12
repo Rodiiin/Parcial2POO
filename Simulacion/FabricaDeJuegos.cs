@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using Parcial2POO.Cartas;
 using Parcial2POO.Estrategias.BlackJack;
+using Parcial2POO.Estrategias.Uno;
 using Parcial2POO.Interfaces;
 using Parcial2POO.Juegos;
 using Parcial2POO.Mazo;
@@ -16,6 +18,10 @@ public class FabricaDeJuegos
         if (tipo.ToLower() == "blackjack")
         {
             return CrearBlackJack();
+        }
+        else if (tipo.ToLower() == "uno")
+        {
+            return CrearUno();
         }
         else
         {
@@ -33,14 +39,26 @@ public class FabricaDeJuegos
         var jugadores = new List<IJugadorBlackJack>
         {
             new JugadorBlackJack("1J","J Cauteloso", calculador, new EstrategiaCautelosa(calculador)),
-            new JugadorBlackJack("2J","J Temerario", calculador,new EstrategiaTemeraria(calculador))
+            new JugadorBlackJack("2J","J Temerario", calculador, new EstrategiaTemeraria(calculador))
         };
-      
 
-
-
-        //return new JuegoBlackJack(mazo, reglas, dealer, jugadores, new RepartoPorDebajoDelUmbral());
         return new JuegoBlackJack(mazo, reglas, dealer, jugadores);
+    }
 
+    private static IJuegoCartas CrearUno()
+    {
+        var mazo = new MazoUno(cantidadDeMazos: 1);
+        var estrategiaAleatoria = new EstrategiaAleatoria();
+        var estrategiaCalculadora = new EstrategiaCalculadora();
+
+        var jugadores = new List<JugadorUno>
+        {
+            new JugadorUno("Jugador 1", estrategiaAleatoria),
+            new JugadorUno("Jugador 2", estrategiaCalculadora),
+            new JugadorUno("Jugador 3", estrategiaAleatoria),
+            new JugadorUno("Jugador 4", estrategiaCalculadora)
+        };
+
+        return new JuegoUnoClasico(jugadores, mazo);
     }
 }

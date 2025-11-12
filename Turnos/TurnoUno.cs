@@ -8,7 +8,7 @@ public class TurnoUno : ITurno
 {
     private readonly List<int> _jugadores;
     private int _indiceActual;
-    private bool _direccionNormal; // true = sentido horario, false = antihorario
+    private bool _direccionNormal; // true = horario, false = antihorario
 
     public TurnoUno(int cantidadJugadores)
     {
@@ -25,6 +25,18 @@ public class TurnoUno : ITurno
 
     public int JugadorActual => _jugadores[_indiceActual];
 
+    // Nueva propiedad para que el juego pueda saber la dirección actual (si la necesitas externamente)
+    public bool DireccionNormal => _direccionNormal;
+
+    // Nuevo método: devuelve el índice (no el Id) del siguiente jugador sin avanzar el turno
+    public int VerSiguiente()
+    {
+        if (_direccionNormal)
+            return (_indiceActual + 1) % _jugadores.Count;
+        else
+            return (_indiceActual - 1 + _jugadores.Count) % _jugadores.Count;
+    }
+
     public int ObtenerSiguiente()
     {
         ActualizarIndice();
@@ -38,25 +50,21 @@ public class TurnoUno : ITurno
 
     public void SaltarSiguiente()
     {
-        ActualizarIndice(); // Salta el siguiente
-        ActualizarIndice(); // Avanza al subsiguiente
+        // Avanza al “siguiente” (que se salta) y luego al subsiguiente que jugará
+        ActualizarIndice(); // jugador saltado
+        ActualizarIndice(); // jugador que sí jugará
     }
 
     private void ActualizarIndice()
     {
         if (_direccionNormal)
-        {
             _indiceActual = (_indiceActual + 1) % _jugadores.Count;
-        }
         else
-        {
             _indiceActual = (_indiceActual - 1 + _jugadores.Count) % _jugadores.Count;
-        }
     }
 
     public void Ejecutar()
     {
-        // Método de la interfaz ITurno - simplemente avanza al siguiente turno
         ObtenerSiguiente();
     }
 }

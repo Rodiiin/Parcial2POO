@@ -28,7 +28,7 @@ public class ReglasUnoClasico
 
         // Mismo número si ambas son numéricas
         if (jugada.Tipo == TiposUno.Numerica && topeMesa.Tipo == TiposUno.Numerica)
-            return jugada.Valor == topeMesa.Valor;
+            return jugada.ValorNumerico == topeMesa.ValorNumerico;
 
         return false;
     }

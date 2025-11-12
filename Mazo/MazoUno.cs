@@ -31,20 +31,21 @@ public class MazoUno : IMazoCartas, IMazoConDescarte, IMazoReciclable
         {
             foreach (var color in Enum.GetValues<ColoresUno>())
             {
-                if (color == ColoresUno.Negro)
-                    continue; // Los comodines se agregan después
-                    
-                // Carta 0 (una por color)
-                _cartas.Push(new CartaUnoClasico(color, TiposUno.Numerica, 0));
+                if (color == ColoresUno.Negro) continue;
 
-                // Cartas 1-9 (dos por color)
-                for (int valor = 1; valor <= 9; valor++)
+                // Cartas numéricas: 0-9 (1 de cada número por color)
+                for (int numero = 0; numero <= 9; numero++)
                 {
-                    _cartas.Push(new CartaUnoClasico(color, TiposUno.Numerica, valor));
-                    _cartas.Push(new CartaUnoClasico(color, TiposUno.Numerica, valor));
+                    _cartas.Push(new CartaUnoClasico(color, TiposUno.Numerica, numero));
                 }
 
-                // Cartas especiales: Salta, Reversa, TomaDos (dos por color)
+                // Cartas numéricas: 1-9 (1 más de cada por color)
+                for (int numero = 1; numero <= 9; numero++)
+                {
+                    _cartas.Push(new CartaUnoClasico(color, TiposUno.Numerica, numero));
+                }
+
+                // Cartas de acción: Salta, Reversa, TomaDos (2 de cada por color)
                 _cartas.Push(new CartaUnoClasico(color, TiposUno.Salta));
                 _cartas.Push(new CartaUnoClasico(color, TiposUno.Salta));
                 _cartas.Push(new CartaUnoClasico(color, TiposUno.Reversa));
@@ -52,7 +53,8 @@ public class MazoUno : IMazoCartas, IMazoConDescarte, IMazoReciclable
                 _cartas.Push(new CartaUnoClasico(color, TiposUno.TomaDos));
                 _cartas.Push(new CartaUnoClasico(color, TiposUno.TomaDos));
             }
-            // Cartas comodín: Comodín, Comodín Toma Cuatro (4 de cada una)
+
+            // Comodines (4 de cada una)
             for (int j = 0; j < 4; j++)
             {
                 _cartas.Push(new CartaUnoClasico(ColoresUno.Negro, TiposUno.Comodin));

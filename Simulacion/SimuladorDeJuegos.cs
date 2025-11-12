@@ -14,16 +14,12 @@ public class SimuladorDeJuegos
     }
     public void Ejecutar()
     {
-        int ronda = 1;
+        _juego.IniciarJuego();  // Una sola vez
+        
         while (!_juego.HaFinalizado())
         {
-            Console.WriteLine($"\n🔁 Comenzando ronda {ronda}");
-            _juego.IniciarJuego();
-            Console.WriteLine("Ejecutando turnos:");
             _juego.EjecutarTurno();
-            Console.WriteLine("Finalizando ronda:");
             _juego.FinalizarRonda();
-            ronda++;
         }
 
         Console.WriteLine("\nEl juego ha finalizado.");

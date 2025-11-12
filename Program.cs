@@ -1,4 +1,3 @@
-
 using Parcial2POO.Interfaces;
 using Parcial2POO.Simulacion;
 
@@ -8,7 +7,7 @@ class Program
     {
         Console.WriteLine("Selecciona el juego de mesa a simular:");
         Console.WriteLine("1. BlackJack");
-        // Console.WriteLine("2. Uno");
+        Console.WriteLine("2. UNO");
 
         Console.Write("Ingresa el número del juego: ");
         string opcion = Console.ReadLine(); 
@@ -17,14 +16,16 @@ class Program
         switch (opcion)
         {
             case "1":
-                tipoJuego = "BlackJack";
+                tipoJuego = "blackjack";
+                break;
+            case "2":
+                tipoJuego = "uno";
                 break;
             default:
-                tipoJuego = "";
-                break;
-        };
+                Console.WriteLine("Opción no válida.");
+                return;
+        }
 
-        //Tratar de iniciar al juego.
         try
         {
             IJuegoCartas juego = FabricaDeJuegos.CrearJuego(tipoJuego);
@@ -33,7 +34,7 @@ class Program
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error al iniciar el juego:'{ex.Message}'.");
+            Console.WriteLine($"Error al iniciar el juego: '{ex.Message}'.");
         }
     }
 }
